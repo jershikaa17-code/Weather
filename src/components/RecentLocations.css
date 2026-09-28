@@ -1,53 +1,77 @@
 .recent-locations {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 0.6rem;
-  margin: 0 0 1.5rem;
+  flex-direction: column;
+  margin-top: 0.3rem;
 }
 
-.recent-locations__label {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.78rem;
-  font-weight: 600;
+.recent-locations__toggle {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.recent-locations__chevron {
+  margin-left: auto;
   color: var(--text-faint);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
-.recent-locations__chips {
+.recent-locations__chevron.is-open {
+  transform: rotate(180deg);
+}
+
+.recent-locations__list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.2rem 0 0.3rem;
 }
 
-.recent-locations__chip {
-  border: 1px solid var(--border);
-  background: var(--surface-glass);
+.recent-locations__item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  border: none;
+  background: transparent;
+  padding: 0.5rem 0.9rem 0.5rem 2.35rem;
+  border-radius: 10px;
   color: var(--text-muted);
-  font-size: 0.8rem;
+  font-size: 0.83rem;
   font-weight: 600;
-  padding: 0.35rem 0.85rem;
-  border-radius: 999px;
   cursor: pointer;
-  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+  text-align: left;
+  transition: background 0.15s ease, color 0.15s ease;
 }
 
-.recent-locations__chip:hover {
-  border-color: var(--accent);
+.recent-locations__item span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recent-locations__item svg {
+  flex-shrink: 0;
+  opacity: 0.7;
+}
+
+.recent-locations__item:hover {
+  background: var(--nav-active-bg);
   color: var(--text-primary);
 }
 
-.recent-locations__chip.is-active {
-  background: var(--accent-gradient);
-  border-color: transparent;
-  color: #fff;
+.recent-locations__item.is-active {
+  background: var(--nav-active-bg);
+  color: var(--accent);
 }
 
-@media (max-width: 480px) {
-  .recent-locations {
-    justify-content: center;
-  }
+.recent-locations__item.is-active svg {
+  opacity: 1;
+}
+
+.recent-locations__empty {
+  margin: 0;
+  padding: 0.3rem 0.9rem 0.3rem 2.35rem;
+  font-size: 0.76rem;
+  color: var(--text-faint);
+  font-style: italic;
 }

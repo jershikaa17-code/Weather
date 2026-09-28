@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import Sidebar from './Sidebar';
 import TopBar from './TopBar';
-import RecentLocations from './RecentLocations';
 import CurrentWeather from './CurrentWeather';
 import HourlyForecast from './HourlyForecast';
 import Forecast from './Forecast';
@@ -16,6 +15,7 @@ import { getWeatherForCity, getWeatherForCoordinates, WeatherApiError } from '..
 import { getCurrentPosition, GeolocationError } from '../utils/geolocation';
 import { loadRecentLocations, saveRecentLocation } from '../utils/recentLocations';
 import { downloadWeatherReport } from '../utils/downloadReport';
+import { useInstallPrompt } from '../utils/pwaInstall';
 import './WeatherDashboard.css';
 
 const DEFAULT_CITY = 'Chennai';
@@ -102,6 +102,11 @@ function WeatherDashboard() {
     }
   };
 
+  const handleSelectRecent = (cityName) => {
+    setActiveView('dashboard');
+    handleSearch(cityName);
+  };
+
   const handleRetry = () => {
     const action = lastActionRef.current;
     if (!action) return;
@@ -132,6 +137,8 @@ function WeatherDashboard() {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
+  const { canInstall, isInstalled, promptInstall } = useInstallPrompt();
+
   const isBusy = status === 'loading';
   const canDownload = status === 'ok' && !!weather;
   const handleDownload = () => downloadWeatherReport(weather, unit);
@@ -143,6 +150,9 @@ function WeatherDashboard() {
         country={weather?.country ?? 'Search a city'}
         activeView={activeView}
         onNavigate={handleNavigate}
+        recentLocations={recentLocations}
+        activeCity={status === 'ok' ? weather.city : null}
+        onSelectRecent={handleSelectRecent}
       />
 
       <div className="app-main">
@@ -155,14 +165,9 @@ function WeatherDashboard() {
           isBusy={isBusy}
           theme={theme}
           onThemeChange={setTheme}
-          onDownload={handleDownload}
-          canDownload={canDownload}
-        />
-
-        <RecentLocations
-          locations={recentLocations}
-          activeCity={status === 'ok' ? weather.city : null}
-          onSelect={handleSearch}
+          onInstall={promptInstall}
+          canInstall={canInstall}
+          isInstalled={isInstalled}
         />
 
         {status === 'loading' && <LoadingState />}
@@ -192,7 +197,14 @@ function WeatherDashboard() {
                   country={weather.country}
                 />
               ) : activeView === 'settings' ? (
-                <SettingsPanel unit={unit} onUnitChange={setUnit} theme={theme} onThemeChange={setTheme} />
+                <SettingsPanel
+                  unit={unit}
+                  onUnitChange={setUnit}
+                  theme={theme}
+                  onThemeChange={setTheme}
+                  onDownloadReport={handleDownload}
+                  canDownloadReport={canDownload}
+                />
               ) : (
                 <>
                   <CurrentWeather data={weather} unit={unit} />

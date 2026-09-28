@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Sun, Moon, Download } from 'lucide-react';
+import { Sun, Moon, MonitorDown } from 'lucide-react';
 import SearchBar from './SearchBar';
 import LocationButton from './LocationButton';
 import './TopBar.css';
@@ -24,13 +24,20 @@ function TopBar({
   isBusy,
   theme,
   onThemeChange,
-  onDownload,
-  canDownload,
+  onInstall,
+  canInstall,
+  isInstalled,
 }) {
   const isDark = theme === 'dark';
   const now = useClock();
 
   const toggleTheme = () => onThemeChange(isDark ? 'light' : 'dark');
+
+  const installTitle = isInstalled
+    ? 'Weather Dashboard is already installed'
+    : canInstall
+      ? 'Install Weather Dashboard as an app'
+      : 'Install not available in this browser';
 
   const dateLabel = now.toLocaleDateString(undefined, {
     weekday: 'short',
@@ -72,12 +79,12 @@ function TopBar({
         <button
           type="button"
           className="top-bar__theme-toggle"
-          onClick={onDownload}
-          disabled={!canDownload}
-          title={canDownload ? 'Download Weather Report' : 'Weather data not loaded yet'}
-          aria-label="Download weather report"
+          onClick={onInstall}
+          disabled={!canInstall}
+          title={installTitle}
+          aria-label="Install Weather Dashboard as an app"
         >
-          <Download size={17} />
+          <MonitorDown size={17} />
         </button>
 
         <button

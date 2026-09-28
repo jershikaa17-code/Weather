@@ -1,7 +1,7 @@
 import { MapPin } from 'lucide-react';
-import { getConditionIcon } from '../utils/weatherIcons';
 import { formatTemp } from '../utils/temperature';
 import WeatherDetails from './WeatherDetails';
+import WeatherIcon from './WeatherIcon';
 import heroBg from '../assets/hero-bg.jpg';
 import './CurrentWeather.css';
 
@@ -24,8 +24,6 @@ function CurrentWeather({ data, unit }) {
     pressure,
     uvIndex,
   } = data;
-  const { Icon: ConditionIcon, color: conditionColor } = getConditionIcon(condition);
-
   return (
     <section className="current-weather" style={heroBackgroundStyle} aria-label="Current weather">
       <div className="current-weather__body">
@@ -39,12 +37,7 @@ function CurrentWeather({ data, unit }) {
           </p>
 
           <div className="current-weather__reading">
-            <ConditionIcon
-              className="current-weather__icon"
-              size={72}
-              strokeWidth={1.6}
-              style={{ color: conditionColor }}
-            />
+            <WeatherIcon condition={condition} className="current-weather__icon" size={72} />
             <div>
               <div className="current-weather__temp">
                 {formatTemp(temperature, unit)}

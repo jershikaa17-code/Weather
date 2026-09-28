@@ -1,6 +1,6 @@
 import { Clock, Droplet, ArrowRight } from 'lucide-react';
-import { getConditionIcon } from '../utils/weatherIcons';
 import { formatTemp } from '../utils/temperature';
+import WeatherIcon from './WeatherIcon';
 import './HourlyForecast.css';
 
 function HourlyForecast({ hours, unit }) {
@@ -17,16 +17,15 @@ function HourlyForecast({ hours, unit }) {
       </div>
       <div className="hourly-forecast__row">
         {hours.map((hour, index) => {
-          const { Icon, color } = getConditionIcon(hour.condition);
           const isNow = index === 0;
           return (
             <div className={`hourly-card ${isNow ? 'hourly-card--now' : ''}`} key={hour.time}>
               <p className="hourly-card__time">{hour.time}</p>
-              <Icon
-                className="hourly-card__icon"
+              <WeatherIcon
+                condition={hour.condition}
                 size={26}
-                style={{ color: isNow ? '#fff' : color }}
-                strokeWidth={2}
+                className="hourly-card__icon"
+                style={isNow ? { color: '#fff' } : undefined}
               />
               <p className="hourly-card__temp">{formatTemp(hour.temp, unit)}</p>
               {hour.precipitation > 0 && (

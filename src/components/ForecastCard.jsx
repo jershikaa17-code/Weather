@@ -1,16 +1,14 @@
 import { Droplet } from 'lucide-react';
-import { getConditionIcon } from '../utils/weatherIcons';
 import { formatTemp } from '../utils/temperature';
+import WeatherIcon from './WeatherIcon';
 import './ForecastCard.css';
 
 function ForecastCard({ day, condition, high, low, precipitation, unit, isHighlighted }) {
-  const { Icon, color } = getConditionIcon(condition);
-
   return (
     <div className={`forecast-card ${isHighlighted ? 'forecast-card--active' : ''}`}>
       <p className="forecast-card__day">{day}</p>
-      <div className="forecast-card__icon" style={{ color }}>
-        <Icon size={30} strokeWidth={2} />
+      <div className="forecast-card__icon">
+        <WeatherIcon condition={condition} size={30} />
       </div>
       <p className="forecast-card__condition">{condition}</p>
       <div className="forecast-card__temps">

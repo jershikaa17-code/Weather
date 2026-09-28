@@ -1,32 +1,26 @@
-import {
-  Sun,
-  Moon,
-  CloudSun,
-  Cloudy,
-  CloudRain,
-  Zap,
-  Snowflake,
-  Wind,
-  CloudFog,
-} from 'lucide-react';
+import { Sun, Moon, CloudSun, Snowflake, Wind, CloudFog } from 'lucide-react';
+import cloudyImage from '../assets/weather-icons/cloudy.png';
+import rainyImage from '../assets/weather-icons/rainy.png';
+import thunderstormImage from '../assets/weather-icons/thunderstorm.png';
 
-// Maps a mock-data condition string to a Lucide icon component + accent color.
+// Maps a mock-data condition string to either a Lucide icon + accent color, or
+// a flat illustrated image (for conditions with a dedicated artwork asset).
 // Kept separate from the mock data and from the display components so either
 // side can change independently later (e.g. real API condition codes).
 const conditionIconMap = {
   Sunny: { Icon: Sun, color: '#fbbf24' },
   Clear: { Icon: Moon, color: '#93c5fd' },
   'Partly Cloudy': { Icon: CloudSun, color: '#fbbf24' },
-  Cloudy: { Icon: Cloudy, color: '#94a3b8' },
-  Rainy: { Icon: CloudRain, color: '#38bdf8' },
-  Thunderstorm: { Icon: Zap, color: '#6d5ef0' },
+  Cloudy: { image: cloudyImage },
+  Rainy: { image: rainyImage },
+  Thunderstorm: { image: thunderstormImage },
   Snow: { Icon: Snowflake, color: '#bae6fd' },
   Windy: { Icon: Wind, color: '#7dd3fc' },
   Foggy: { Icon: CloudFog, color: '#93a5c9' },
 };
 
 export function getConditionIcon(condition) {
-  return conditionIconMap[condition] || { Icon: Cloudy, color: '#94a3b8' };
+  return conditionIconMap[condition] || { image: cloudyImage };
 }
 
 const conditionBlurbMap = {

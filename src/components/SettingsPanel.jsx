@@ -1,7 +1,7 @@
-import { Settings } from 'lucide-react';
+import { Settings, FileDown } from 'lucide-react';
 import './SettingsPanel.css';
 
-function SettingsPanel({ unit, onUnitChange, theme, onThemeChange }) {
+function SettingsPanel({ unit, onUnitChange, theme, onThemeChange, onDownloadReport, canDownloadReport }) {
   return (
     <section className="settings-panel card" aria-label="Forecast settings">
       <h3 className="settings-panel__title">
@@ -58,6 +58,27 @@ function SettingsPanel({ unit, onUnitChange, theme, onThemeChange }) {
             Dark Mode
           </button>
         </div>
+      </div>
+
+      <div className="settings-panel__divider" />
+
+      <div className="settings-panel__row">
+        <div>
+          <p className="settings-panel__label">Weather Report</p>
+          <p className="settings-panel__hint">
+            Download a text summary of the current weather, 7-day forecast and overview for the
+            selected city.
+          </p>
+        </div>
+        <button
+          type="button"
+          className="settings-panel__download"
+          onClick={onDownloadReport}
+          disabled={!canDownloadReport}
+        >
+          <FileDown size={16} />
+          Download Report
+        </button>
       </div>
     </section>
   );

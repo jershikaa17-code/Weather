@@ -76,6 +76,10 @@
   color: var(--accent);
 }
 
+.sidebar__nav--settings {
+  margin-top: 0.3rem;
+}
+
 .sidebar__footer {
   margin-top: auto;
   display: flex;
