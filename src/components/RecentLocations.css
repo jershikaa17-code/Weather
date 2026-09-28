@@ -1,0 +1,53 @@
+.recent-locations {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 0 0 1.5rem;
+}
+
+.recent-locations__label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.recent-locations__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.recent-locations__chip {
+  border: 1px solid var(--border);
+  background: var(--surface-glass);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
+}
+
+.recent-locations__chip:hover {
+  border-color: var(--accent);
+  color: var(--text-primary);
+}
+
+.recent-locations__chip.is-active {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  color: #fff;
+}
+
+@media (max-width: 480px) {
+  .recent-locations {
+    justify-content: center;
+  }
+}

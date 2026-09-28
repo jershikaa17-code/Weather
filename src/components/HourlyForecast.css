@@ -1,0 +1,107 @@
+.hourly-forecast {
+  margin-top: 1.5rem;
+}
+
+.hourly-forecast__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.1rem;
+}
+
+.hourly-forecast__title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.hourly-forecast__title svg {
+  color: var(--accent);
+}
+
+.hourly-forecast__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.hourly-forecast__link:hover {
+  color: var(--accent-hover);
+}
+
+.hourly-forecast__row {
+  display: flex;
+  gap: 0.85rem;
+  overflow-x: auto;
+  padding-bottom: 0.4rem;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+}
+
+.hourly-card {
+  flex: 1 1 0;
+  min-width: 92px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem 0.5rem;
+  text-align: center;
+  scroll-snap-align: start;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hourly-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.hourly-card--now {
+  background: var(--accent-gradient);
+  border-color: transparent;
+  box-shadow: var(--shadow-md);
+}
+
+.hourly-card__time {
+  margin: 0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.hourly-card--now .hourly-card__time,
+.hourly-card--now .hourly-card__temp,
+.hourly-card--now .hourly-card__precip {
+  color: #fff;
+}
+
+.hourly-card__temp {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.hourly-card__precip {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  color: var(--accent-2);
+}

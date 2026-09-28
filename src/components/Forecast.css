@@ -1,0 +1,49 @@
+.forecast {
+  margin-top: 1.5rem;
+  scroll-margin-top: 1.5rem;
+}
+
+.forecast__header {
+  margin-bottom: 1.1rem;
+}
+
+.forecast__title {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+
+.forecast__title svg {
+  color: var(--accent);
+}
+
+.forecast__grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.85rem;
+}
+
+@media (max-width: 900px) {
+  .forecast__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .forecast__grid {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+  }
+
+  .forecast__grid .forecast-card {
+    flex: 0 0 auto;
+    width: 108px;
+  }
+}

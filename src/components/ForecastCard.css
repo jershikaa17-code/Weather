@@ -1,0 +1,73 @@
+.forecast-card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.1rem 0.75rem;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.forecast-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-sm);
+  border-color: var(--accent);
+}
+
+.forecast-card--active {
+  background: var(--nav-active-bg);
+  border-color: transparent;
+}
+
+.forecast-card__day {
+  margin: 0;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-primary);
+}
+
+.forecast-card--active .forecast-card__day {
+  color: var(--accent);
+}
+
+.forecast-card__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0.7rem 0;
+}
+
+.forecast-card__condition {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  min-height: 2.1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.forecast-card__temps {
+  margin-top: 0.6rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.forecast-card__high {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.forecast-card__low {
+  color: var(--text-muted);
+}
+
+.forecast-card__precip {
+  margin: 0.5rem 0 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  color: var(--accent-2);
+}
