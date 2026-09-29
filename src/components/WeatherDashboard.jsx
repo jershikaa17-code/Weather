@@ -13,9 +13,10 @@ import LoadingState from './LoadingState';
 import ErrorState from './ErrorState';
 import { getWeatherForCity, getWeatherForCoordinates, WeatherApiError } from '../services/weatherApi';
 import { getCurrentPosition, GeolocationError } from '../utils/geolocation';
-import { loadRecentLocations, saveRecentLocation } from '../utils/recentLocations';
+import { loadRecentLocations, saveRecentLocation, removeRecentLocation } from '../utils/recentLocations';
 import { downloadWeatherReport } from '../utils/downloadReport';
 import { useInstallPrompt } from '../utils/pwaInstall';
+import { loadUserName, saveUserName } from '../utils/userName';
 import './WeatherDashboard.css';
 
 const DEFAULT_CITY = 'Chennai';
@@ -46,6 +47,7 @@ function WeatherDashboard() {
   const [theme, setTheme] = useState(
     () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light'
   );
+  const [userName, setUserName] = useState(loadUserName);
   const requestIdRef = useRef(0);
   const lastActionRef = useRef(null);
 
@@ -107,6 +109,10 @@ function WeatherDashboard() {
     handleSearch(cityName);
   };
 
+  const handleRemoveRecent = (cityName) => {
+    setRecentLocations((prev) => removeRecentLocation(cityName, prev));
+  };
+
   const handleRetry = () => {
     const action = lastActionRef.current;
     if (!action) return;
@@ -142,6 +148,7 @@ function WeatherDashboard() {
   const isBusy = status === 'loading';
   const canDownload = status === 'ok' && !!weather;
   const handleDownload = () => downloadWeatherReport(weather, unit);
+  const handleUserNameChange = (name) => setUserName(saveUserName(name));
 
   return (
     <div className="app-shell">
@@ -153,6 +160,7 @@ function WeatherDashboard() {
         recentLocations={recentLocations}
         activeCity={status === 'ok' ? weather.city : null}
         onSelectRecent={handleSelectRecent}
+        onRemoveRecent={handleRemoveRecent}
       />
 
       <div className="app-main">
@@ -204,6 +212,8 @@ function WeatherDashboard() {
                   onThemeChange={setTheme}
                   onDownloadReport={handleDownload}
                   canDownloadReport={canDownload}
+                  userName={userName}
+                  onUserNameChange={handleUserNameChange}
                 />
               ) : (
                 <>
@@ -215,7 +225,7 @@ function WeatherDashboard() {
             </div>
 
             <div className="app-grid__side">
-              <GreetingCard condition={weather.condition} />
+              <GreetingCard condition={weather.condition} userName={userName} />
               <TodaysHighlights
                 temperature={weather.temperature}
                 feelsLike={weather.feelsLike}

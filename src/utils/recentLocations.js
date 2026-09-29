@@ -20,3 +20,13 @@ export function saveRecentLocation(cityName, list) {
   }
   return deduped;
 }
+
+export function removeRecentLocation(cityName, list) {
+  const filtered = list.filter((name) => name !== cityName);
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(filtered));
+  } catch {
+    // localStorage unavailable (private mode, quota, etc.) — recent list just won't persist.
+  }
+  return filtered;
+}

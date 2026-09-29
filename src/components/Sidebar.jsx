@@ -8,7 +8,16 @@ const PRIMARY_NAV_ITEMS = [
   { label: 'Maps', view: 'map', Icon: MapPin },
 ];
 
-function Sidebar({ city, country, activeView, onNavigate, recentLocations, activeCity, onSelectRecent }) {
+function Sidebar({
+  city,
+  country,
+  activeView,
+  onNavigate,
+  recentLocations,
+  activeCity,
+  onSelectRecent,
+  onRemoveRecent,
+}) {
   return (
     <aside className="sidebar">
       <div className="sidebar__brand">
@@ -35,7 +44,12 @@ function Sidebar({ city, country, activeView, onNavigate, recentLocations, activ
         ))}
       </nav>
 
-      <RecentLocations locations={recentLocations} activeCity={activeCity} onSelect={onSelectRecent} />
+      <RecentLocations
+        locations={recentLocations}
+        activeCity={activeCity}
+        onSelect={onSelectRecent}
+        onRemove={onRemoveRecent}
+      />
 
       <nav className="sidebar__nav sidebar__nav--settings">
         <button

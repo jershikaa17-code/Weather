@@ -1,16 +1,9 @@
 import { Sun } from 'lucide-react';
 import { getConditionBlurb } from '../utils/weatherIcons';
+import { getGreeting } from '../utils/greeting';
 import './GreetingCard.css';
 
-const USER_NAME = 'Adithya';
-
-function getGreeting(hour) {
-  if (hour < 12) return 'Good Morning';
-  if (hour < 17) return 'Good Afternoon';
-  return 'Good Evening';
-}
-
-function GreetingCard({ condition }) {
+function GreetingCard({ condition, userName }) {
   const greeting = getGreeting(new Date().getHours());
 
   return (
@@ -19,7 +12,7 @@ function GreetingCard({ condition }) {
         <Sun size={22} />
       </span>
       <p className="greeting-card__greeting">
-        {greeting}, <strong>{USER_NAME}</strong>
+        {greeting}, <strong>{userName}</strong>
       </p>
       <p className="greeting-card__blurb">{getConditionBlurb(condition)}</p>
     </section>

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { History, MapPin, ChevronDown } from 'lucide-react';
+import { History, MapPin, ChevronDown, X } from 'lucide-react';
 import './RecentLocations.css';
 
-function RecentLocations({ locations, activeCity, onSelect }) {
+function RecentLocations({ locations, activeCity, onSelect, onRemove }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -24,15 +24,30 @@ function RecentLocations({ locations, activeCity, onSelect }) {
             <p className="recent-locations__empty">Search for a city to see it here</p>
           ) : (
             locations.map((name) => (
-              <button
+              <div
                 key={name}
-                type="button"
-                className={`recent-locations__item ${name === activeCity ? 'is-active' : ''}`}
-                onClick={() => onSelect(name)}
+                className={`recent-locations__row ${name === activeCity ? 'is-active' : ''}`}
               >
-                <MapPin size={14} />
-                <span>{name}</span>
-              </button>
+                <button
+                  type="button"
+                  className="recent-locations__item"
+                  onClick={() => onSelect(name)}
+                >
+                  <MapPin size={14} />
+                  <span>{name}</span>
+                </button>
+                <button
+                  type="button"
+                  className="recent-locations__remove"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onRemove(name);
+                  }}
+                  aria-label={`Remove ${name} from recent cities`}
+                >
+                  <X size={13} />
+                </button>
+              </div>
             ))
           )}
         </div>

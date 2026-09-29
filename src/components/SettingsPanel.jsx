@@ -1,13 +1,27 @@
 import { Settings, FileDown } from 'lucide-react';
+import PersonalizationCard from './PersonalizationCard';
 import './SettingsPanel.css';
 
-function SettingsPanel({ unit, onUnitChange, theme, onThemeChange, onDownloadReport, canDownloadReport }) {
+function SettingsPanel({
+  unit,
+  onUnitChange,
+  theme,
+  onThemeChange,
+  onDownloadReport,
+  canDownloadReport,
+  userName,
+  onUserNameChange,
+}) {
   return (
     <section className="settings-panel card" aria-label="Forecast settings">
       <h3 className="settings-panel__title">
         <Settings size={17} />
         Forecast Settings
       </h3>
+
+      <PersonalizationCard userName={userName} onUserNameChange={onUserNameChange} />
+
+      <div className="settings-panel__divider" />
 
       <div className="settings-panel__row">
         <div>
